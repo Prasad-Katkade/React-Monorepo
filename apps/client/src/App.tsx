@@ -13,7 +13,7 @@ function App(): JSX.Element {
     <div className="App">
       <header className="App-header">
         <h1 className="header">
-          Docs
+          Client
           <div className="Turborepo">Turborepo Example</div>
         </h1>
         <div>
@@ -24,9 +24,10 @@ function App(): JSX.Element {
           <Link className="App-link" href="https://reactjs.org">
             React Docs
           </Link>
-          <Button title="hi" handleClick={() => { console.log("hey"); void logMovies(); }} />
+          <Button handleClick={():void => { console.log("hey"); void logMovies(); }} title="hi" />
         </div>
       </header>
+      <p className="bg-orange-300">hellooo</p>
     </div>
   );
 }

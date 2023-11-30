@@ -1,0 +1,55 @@
+this is my react monorepo folder structure in which  
+1] react-monorepo = project folder 
+2] apps = contains two react apps client and admin also included simple CRUD API's with express
+3] node_modules = common node modules of entire project
+4] packages folder = contains common component of two app inside ui folder and  other folder includes shared configs
+5] apps and package are two workspace defined in root level package.json of react-monorepo folder
+
+react-monorepo
+|
+|- Apps -|
+                  |- client |
+                                  |- node_modules
+                                  |- public 
+                                  | - src |
+                                               |  - Components Folder |
+                                                                                                 |- dummyComponnet.tsx
+                                               | - App.css 
+                                               |- App.tsx
+                                               | - index.css 
+                                               | - index.tsx
+                               | - package.json        
+                               |- tailwind.config.js   
+                   
+                   |- admin |
+                                  |- node_modules
+                                  |- public 
+                                  | - src |
+                                               |  - Components Folder |
+                                                                                                 |- dummyComponnet.tsx
+                                               | - App.css 
+                                               |- App.tsx
+                                               | - index.css 
+                                               | - index.tsx
+                                 | - package.json        
+                                 |- tailwind.config.js   
+|-node_modules 
+|- packages  |
+                           | - eslint-config-folder
+                           | -tsconfig-config-folder
+                           |-tailwind-config-folder |
+                                                                            |- package.json
+                                                                            |- tailwind.config.js   (shared) 
+                          |- ui folder |
+                                                | - dist
+                                                | - src | 
+                                                             |- Button.tsx
+                                                             | - index.tsx   
+                                                | package.json      
+|-.gitignore 
+|-package.json 
+|-turbo.json     
+|-tsconfig.json        
+
+
+reply if you understand the folder structure   

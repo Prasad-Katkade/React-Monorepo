@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "ui";
+import { Link, Button } from "ui";
 import "./App.css";
 
 function App(): JSX.Element {
@@ -7,7 +7,7 @@ function App(): JSX.Element {
     <div className="App">
       <header className="App-header">
         <h1 className="header">
-          Web
+          Admin
           <div className="Turborepo">Turborepo Example</div>
         </h1>
         <div>
@@ -18,6 +18,7 @@ function App(): JSX.Element {
           <Link className="App-link" href="https://reactjs.org">
             React Docs
           </Link>
+          <Button handleClick={() :void => { console.log("hey"); }} title="hi" />
         </div>
       </header>
     </div>
