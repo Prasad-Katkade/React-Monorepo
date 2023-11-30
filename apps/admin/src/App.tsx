@@ -18,9 +18,12 @@ function App(): JSX.Element {
           <Link className="App-link" href="https://reactjs.org">
             React Docs
           </Link>
-          <Button handleClick={() :void => { console.log("hey"); }} title="hi" />
+          <Button handleClick={() : void => { console.log("hey"); }} title="hi" />
         </div>
       </header>
+      <h1 className="text-3xl font-bold underline">
+      Hello world!
+    </h1>
     </div>
   );
 }
