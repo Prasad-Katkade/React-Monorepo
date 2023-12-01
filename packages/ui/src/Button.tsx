@@ -9,5 +9,5 @@ export function Button({
   handleClick: () => void;
 }) {
   // eslint-disable-next-line react/button-has-type
-  return <button className="ui-bg-orange-800 ui-h-8 ui-w-8 rounded ui-border-2 ui-border-sky-500" onClick={handleClick}>{title}</button>;
+  return <button className="bg-orange-800 h-8 w-8 rounded border-2 border-sky-500" onClick={handleClick}>{title}</button>;
 }
