@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ProductCard } from "ui";
+import { ProductCard,Pagination } from "ui";
 import "./App.css";
 import { ProductForm } from "./Components/ProductForm";
 
@@ -15,10 +15,19 @@ interface Response {
   data: ProductInterface[];
 }
 
+interface DeleteResp {
+  success: boolean;
+  data: {
+    temp: ProductInterface;
+  };
+}
+
 function App(): JSX.Element {
-
   const [products, setProducts] = useState<ProductInterface[]>([]);
-
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [filteredProducts, setFilteredProduct] = useState<ProductInterface[]>(
+    []
+  );
   async function getProducts(): Promise<void> {
     try {
       const response = await fetch("http://localhost:8000/products");
@@ -30,8 +39,10 @@ function App(): JSX.Element {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const data: Response = await response.json();
 
-      if (data.success) {
+      if (data?.success) {
         setProducts(data.data);
+        const total = Math.ceil(data.data.length / 10);
+        setTotalPages(total);
       } else {
         console.error("Failed to fetch products");
       }
@@ -45,7 +56,6 @@ function App(): JSX.Element {
     payload.append("product_name", data.get("product_name") as string);
     payload.append("image", data.get("image") as string);
     payload.append("price", data.get("price") as string);
-    console.log("data", payload, url);
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -67,6 +77,29 @@ function App(): JSX.Element {
       console.error("Error creating product", error);
     }
   };
+
+  const deleteProduct = async (id: number): Promise<void> => {
+    try {
+      const response = await fetch(`http://localhost:8000/products/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const data: DeleteResp = await response.json();
+
+      if (data.success) {
+        void getProducts();
+      } else {
+        console.error("Failed to delete product");
+      }
+    } catch (error) {
+      console.error("Error deleting product", error);
+    }
+  };
   useEffect(() => {
     void getProducts();
   }, []);
@@ -84,10 +117,32 @@ function App(): JSX.Element {
         />
       </div>
       <div className="container mx-auto grid grid-cols-4 gap-8 mt-5">
-        {products.map((prod) => {
-          return <ProductCard key={prod.id} {...prod} isAdmin/>;
+        {filteredProducts.map((prod) => {
+          return (
+            <ProductCard
+              key={prod.id}
+              {...prod}
+              handleDelete={(id: number): void => {
+                void deleteProduct(id)
+              }}
+              isAdmin
+            />
+          );
         })}
       </div>
+      {products.length > 0 && (
+        <Pagination
+          handlePageChange={(
+            indexOfLastItem: number,
+            indexOfFirstItem: number
+          ): void => {
+            const temps: ProductInterface[] = products;
+            const filtered = temps.slice(indexOfFirstItem, indexOfLastItem);
+            setFilteredProduct(filtered);
+          }}
+          totalPages={totalPages}
+        />
+      )}
     </div>
   );
 }

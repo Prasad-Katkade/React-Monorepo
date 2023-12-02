@@ -6,14 +6,20 @@ interface ProductInterface {
   image: string;
   price: number;
   isAdmin?:boolean;
+  handleReadMore?:(id:number)=>void
+  handleDelete?:(id:number)=>void
 }
 
 export function ProductCard({
   id,
+  // eslint-disable-next-line camelcase
   product_name,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   image,
   price,
-  isAdmin
+  isAdmin,
+  handleReadMore,
+  handleDelete
 }: ProductInterface): JSX.Element {
   // eslint-disable-next-line camelcase
   const productName = product_name;
@@ -40,7 +46,7 @@ export function ProductCard({
           <button
             className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             onClick={(): void => {
-              console.log(id);
+              handleReadMore ? handleReadMore(id):null;
             }}
             type="button"
           >
@@ -64,6 +70,7 @@ export function ProductCard({
           {isAdmin ? <button
             className="text-white inline-flex items-center bg-red-700  hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm  px-3 py-2  text-center  dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
             type="button"
+            onClick={():void=>{handleDelete? handleDelete(id):null}}
           >
             Delete
             <svg
